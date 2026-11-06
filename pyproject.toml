@@ -1,0 +1,111 @@
+# =============================================================================
+# Swap Aggregator — proyecto Python
+# =============================================================================
+# App-based (no es librería). Instalar con:
+#   pip install -e ".[dev]"
+# O ejecutar directamente con uvicorn:
+#   uvicorn app.main:app --reload
+# =============================================================================
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "swap-aggregator"
+version = "0.1.0"
+description = "Multi-chain, multi-DEX swap aggregator (backend + UI)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Guille" }]
+keywords = ["ethereum", "defi", "swap", "dex", "aggregator", "web3"]
+
+dependencies = [
+    # Web / HTTP
+    "fastapi>=0.115,<1.0",
+    "uvicorn[standard]>=0.32,<1.0",
+    "pydantic>=2.9,<3.0",
+
+    # Blockchain
+    "web3>=7.0,<8.0",
+    "eth-account>=0.13,<1.0",
+    "eth-abi>=5.1,<6.0",
+    "eth-utils>=5.0,<6.0",
+
+    # Config
+    "python-dotenv>=1.0,<2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3,<9.0",
+    "pytest-asyncio>=0.24,<1.0",
+    "pytest-cov>=6.0,<7.0",
+    "httpx>=0.28,<1.0",
+    "ruff>=0.8,<1.0",
+    "mypy>=1.14,<2.0",
+]
+
+[project.scripts]
+swap-aggregator = "app.main:run"
+
+# =============================================================================
+# pytest
+# =============================================================================
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["app/tests"]
+python_files = ["test_*.py"]
+asyncio_mode = "strict"
+asyncio_default_fixture_loop_scope = "function"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+]
+markers = [
+    "integration: tests que tocan red real o RPC (se saltan por defecto)",
+]
+
+# =============================================================================
+# ruff (linter + formatter)
+# =============================================================================
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+src = ["app"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W",   # pycodestyle
+    "F",        # pyflakes
+    "I",        # isort
+    "B",        # bugbear
+    "UP",       # pyupgrade
+    "S",        # bandit (security)
+    "ASYNC",    # flake8-async
+    "RUF",      # ruff-specific
+]
+ignore = [
+    "S101",     # assert (necesario en tests)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"app/tests/**" = ["S", "B"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+# =============================================================================
+# mypy (opcional, se puede quitar)
+# =============================================================================
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unreachable = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["web3.*", "eth_account.*", "eth_abi.*", "eth_utils.*"]
+ignore_missing_imports = true

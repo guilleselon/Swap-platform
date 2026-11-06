@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swap Aggregator</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <span class="brand-mark">⇄</span>
+            <span class="brand-name">Swap Aggregator</span>
+        </div>
+        <button id="connect-btn" class="btn btn-primary" type="button">
+            Connect Wallet
+        </button>
+    </header>
+
+    <main class="container">
+        <section class="card swap-card" aria-labelledby="swap-title">
+            <h1 id="swap-title" class="card-title">Swap</h1>
+
+            <!-- Chain de COTIZACIÓN (fija en Ethereum, deshabilitada) -->
+            <div class="field">
+                <label for="chain-select">
+                    Red de cotización
+                    <span class="hint">(precios siempre desde Ethereum)</span>
+                </label>
+                <select id="chain-select" class="input" disabled>
+                    <option value="">Loading chains…</option>
+                </select>
+            </div>
+
+            <!-- Chain de EJECUCIÓN (donde se firma y envía la tx) -->
+            <div class="field">
+                <label for="execution-chain-select">
+                    Red de ejecución
+                    <span class="hint">(dónde se firma el swap)</span>
+                </label>
+                <select id="execution-chain-select" class="input">
+                    <option value="1" selected>Ethereum (mainnet)</option>
+                    <option value="11155111">Sepolia (prueba)</option>
+                </select>
+            </div>
+
+            <!-- Token de entrada + cantidad -->
+            <div class="field">
+                <label for="amount-in">From</label>
+                <div class="token-row">
+                    <input id="amount-in" class="input amount-input"
+                           type="text" inputmode="decimal"
+                           placeholder="0.0" autocomplete="off">
+                    <select id="token-in-select" class="input token-select">
+                        <option value="">—</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Token de salida -->
+            <div class="field">
+                <label for="token-out-select">To</label>
+                <select id="token-out-select" class="input token-select">
+                    <option value="">—</option>
+                </select>
+            </div>
+
+            <!-- Slippage -->
+            <div class="field">
+                <label for="slippage-input">Slippage (%)</label>
+                <input id="slippage-input" class="input" type="number"
+                       value="0.5" min="0.01" max="10" step="0.01">
+            </div>
+
+            <button id="quote-btn" class="btn btn-secondary btn-full"
+                    type="button" disabled>
+                Get quotes
+            </button>
+
+            <div id="quotes-container" class="quotes-container"></div>
+            <div id="swap-status" class="status-banner" hidden></div>
+        </section>
+
+        <p id="global-error" class="error-banner" hidden></p>
+    </main>
+
+    <footer class="footer">
+        <span>Backend nunca custodia fondos · tú firmas cada transacción en tu wallet</span>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

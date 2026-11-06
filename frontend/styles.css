@@ -1,0 +1,266 @@
+:root {
+    --bg: #0d1117;
+    --bg-card: #161b22;
+    --bg-input: #0d1117;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --accent: #58a6ff;
+    --accent-hover: #79c0ff;
+    --success: #3fb950;
+    --danger: #f85149;
+    --radius: 12px;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Topbar --- */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-card);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.brand-mark {
+    display: inline-flex;
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 700;
+}
+
+/* --- Layout --- */
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    gap: 1rem;
+}
+
+.footer {
+    padding: 1rem 2rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* --- Card --- */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 480px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+/* --- Form --- */
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+.field label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.input {
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 0.9rem;
+    color: var(--text);
+    font-size: 1rem;
+    font-family: var(--font);
+    width: 100%;
+    transition: border-color 0.15s ease;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.token-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.amount-input { flex: 1; font-variant-numeric: tabular-nums; }
+.token-select { flex: 0 0 140px; }
+
+/* --- Buttons --- */
+.btn {
+    border: none;
+    border-radius: 8px;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, opacity 0.15s ease;
+    font-family: var(--font);
+}
+
+.btn-primary { background: var(--accent); color: var(--bg); }
+.btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
+
+.btn-secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+}
+.btn-secondary:hover:not(:disabled) { background: rgba(88, 166, 255, 0.1); }
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.btn-full { width: 100%; margin-top: 0.5rem; }
+
+/* --- Quotes --- */
+.quotes-container {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.quote-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-input);
+}
+
+.quote-row.best {
+    border-color: var(--success);
+}
+
+.quote-dex { font-weight: 600; }
+.quote-amount { font-variant-numeric: tabular-nums; }
+.quote-badge {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: var(--success);
+    color: var(--bg);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* --- Error --- */
+.error-banner {
+    background: rgba(248, 81, 73, 0.15);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    max-width: 480px;
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+/* --- Wallet button states --- */
+#connect-btn.connected {
+    background: var(--success);
+    color: var(--bg);
+}
+
+/* --- Status banner --- */
+.status-banner {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    border: 1px solid var(--border);
+    background: var(--bg-input);
+    color: var(--text);
+    word-break: break-word;
+}
+
+.status-info {
+    border-color: var(--accent);
+    background: rgba(88, 166, 255, 0.1);
+    color: var(--accent);
+}
+
+.status-success {
+    border-color: var(--success);
+    background: rgba(63, 185, 80, 0.12);
+    color: var(--success);
+}
+
+.status-error {
+    border-color: var(--danger);
+    background: rgba(248, 81, 73, 0.12);
+    color: var(--danger);
+}
+
+/* --- Quote row: left column groups name + badge --- */
+.quote-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+}
+
+/* --- Small swap button per row --- */
+.btn-small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    border-radius: 6px;
+}
+
+/* --- Responsive: stack quote rows on narrow screens --- */
+@media (max-width: 420px) {
+    .quote-row {
+        grid-template-columns: 1fr auto;
+    }
+    .quote-row .btn-small {
+        grid-column: 1 / -1;
+        margin-top: 0.4rem;
+    }
+}
